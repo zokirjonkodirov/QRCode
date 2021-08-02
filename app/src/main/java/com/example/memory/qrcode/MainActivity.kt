@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA),123)
         } else {
             startScanning()
-            var clipBoard: ClipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         }
     }
 
@@ -61,8 +60,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         cardView.setOnClickListener {
-            copyToClipboard(resultText.text.toString())
-            Toast.makeText(this, "Copied to Clipboard", Toast.LENGTH_SHORT).show()
+            if (resultText.text.isEmpty()) {
+                Toast.makeText(this, "Empty", Toast.LENGTH_SHORT).show()
+            } else {
+                copyToClipboard(resultText.text.toString())
+                Toast.makeText(this, "Copied to Clipboard", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
